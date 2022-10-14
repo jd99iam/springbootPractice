@@ -1,12 +1,17 @@
 package com.example.firstproject.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity  // 이 어노테이션을 붙여야 DB가 이 객체를 인식한다
+@AllArgsConstructor
+@ToString
 public class Article {
 
     @Id // 각 객체를 식별하기 위한 Id임 (주민번호 같은거)
@@ -18,18 +23,4 @@ public class Article {
     @Column
     private String content;
 
-    public Article(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }
