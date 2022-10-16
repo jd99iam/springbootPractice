@@ -2,6 +2,8 @@ package com.example.firstproject.entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -9,8 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Getter
 @Entity  // 이 어노테이션을 붙여야 DB가 이 객체를 인식한다
 @AllArgsConstructor
+@NoArgsConstructor //디폴트 생성자 추가
 @ToString
 public class Article {
 
