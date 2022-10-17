@@ -8,6 +8,7 @@ package com.example.firstproject.dto;
 @ToString
 public class ArticleForm {
 
+    private Long id;
     private String title;
     private String content;
 
@@ -15,6 +16,6 @@ public class ArticleForm {
 
 
     public Article toEntitiy() {
-        return new Article(null,title,content);
+        return new Article(id,title,content);
     }
 }
