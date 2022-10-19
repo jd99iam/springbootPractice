@@ -29,7 +29,7 @@ public class Article {
             this.title = article.title;
         }
         if (article.content != null){
-            this.content = article.title;
+            this.content = article.content;
         }
     }
 
