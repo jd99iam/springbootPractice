@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import javax.xml.ws.Response;
 import java.util.List;
 
 @Slf4j
@@ -66,4 +68,17 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.OK).build() :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+
+    //트랜잭션 -> 실패 -> 롤백!
+    @PostMapping("/api/transaction-test")
+    @Transactional //해당 메소드를 트랜잭션으로 묶는다! 도중에 실패하면 롤백 (이전상태로)
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos){
+        List<Article> createdList = articleService.createArticles(dtos);
+        return (createdList!=null) ?
+                ResponseEntity.status(HttpStatus.OK).body(createdList):
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+
 }

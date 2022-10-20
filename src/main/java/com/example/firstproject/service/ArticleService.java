@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service //서비스 선언 (서비스 객체를 스프링부트에 생성)
 @Slf4j
@@ -70,5 +71,25 @@ public class ArticleService {
 
         // 데이터 반환
         return target;
+    }
+
+    public List<Article> createArticles(List<ArticleForm> dtos){
+        // dto 묶음을 entitiy 묶음으로 변환, 스트림 문법 사용
+        List<Article> articleList = dtos.stream()
+                .map(dto -> dto.toEntitiy())
+                .collect(Collectors.toList());
+
+        // entity 묶음을 DB에 저장
+        articleList.stream()
+                .forEach(article->articleRepository.save(article));
+
+        // 강제로 예외 발생
+        articleRepository.findById(-1L).orElseThrow(
+                ()->new IllegalArgumentException("실패!")
+        );
+
+        // 결과값 반환
+        return articleList;
+
     }
 }
