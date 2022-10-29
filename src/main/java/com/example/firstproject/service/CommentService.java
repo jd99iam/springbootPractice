@@ -5,6 +5,7 @@ import com.example.firstproject.entity.Article;
 import com.example.firstproject.entity.Comment;
 import com.example.firstproject.repository.ArticleRepository;
 import com.example.firstproject.repository.CommentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
 @Service
+@Slf4j //log  사용할 수 있게 해줌
 public class CommentService {
 
     @Autowired
@@ -43,6 +47,7 @@ public class CommentService {
 
     @Transactional //DB에 접근하므로 트랙잭션 어노테이션으로 문제가 발생하면 롤백되도록 해줘야함
     public CommentDto create(Long articleId, CommentDto dto) {
+
         // 게시글 조회 및 예외 발생
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(()->new IllegalArgumentException("댓글 생성 실패! 대상 게시글이 없습니다.")); //해당 id 없을경우 예외 발생
@@ -55,6 +60,8 @@ public class CommentService {
 
         // DTO로 변경하여 반환
         return CommentDto.createCommentDto(created);
+
+
     }
 
     @Transactional // DB 건드리니까 문제 발생시 롤백 되도록
